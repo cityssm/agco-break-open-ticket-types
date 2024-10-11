@@ -1,6 +1,7 @@
 {
   "name": "@cityssm/agco-break-open-ticket-types",
   "version": "0.1.0",
+  "description": "Break Open Ticket Types approved by the Alcohol and Gaming Commission of Ontario (AGCO) in a Node-friendly format.",
   "type": "module",
   "exports": "./index.js",
   "scripts": {
@@ -22,7 +23,6 @@
   "bugs": {
     "url": "https://github.com/cityssm/agco-break-open-ticket-types/issues"
   },
-  "description": "",
   "devDependencies": {
     "@types/node": "^22.7.5",
     "eslint-config-cityssm": "^12.0.0",
