@@ -1,0 +1,31 @@
+{
+  "name": "@cityssm/agco-break-open-ticket-types",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": "./index.js",
+  "scripts": {
+    "test": "node --test",
+    "coverage": "c8 --reporter=lcov --reporter=text --reporter=text-summary node --test"
+  },
+  "keywords": [
+    "agco",
+    "nevada",
+    "tickets"
+  ],
+  "author": "The Corporation of the City of Sault Ste. Marie",
+  "license": "MIT",
+  "homepage": "https://github.com/cityssm/agco-break-open-ticket-types#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cityssm/agco-break-open-ticket-types.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cityssm/agco-break-open-ticket-types/issues"
+  },
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "eslint-config-cityssm": "^12.0.0",
+    "prettier-config-cityssm": "^1.0.0"
+  }
+}
