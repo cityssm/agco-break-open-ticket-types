@@ -194,5 +194,11 @@ export default {
     ticketPrice: 0.5,
     ticketCount: 2800,
     prizesPerDeal: 910
+  },
+  SP47: {
+    ticketType: 'SP47',
+    ticketPrice: 1,
+    ticketCount: 2800,
+    prizesPerDeal: 1820
   }
 } satisfies TicketTypesLookupObject<'SP'>

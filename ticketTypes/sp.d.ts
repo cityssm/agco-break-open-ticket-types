@@ -191,5 +191,11 @@ declare const _default: {
         ticketCount: number;
         prizesPerDeal: number;
     };
+    SP47: {
+        ticketType: "SP47";
+        ticketPrice: number;
+        ticketCount: number;
+        prizesPerDeal: number;
+    };
 };
 export default _default;
