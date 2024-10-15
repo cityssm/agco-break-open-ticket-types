@@ -1,5 +1,6 @@
 # AGCO Break Open Ticket Types
 
+[![npm (scoped)](https://img.shields.io/npm/v/@cityssm/agco-break-open-ticket-types)](https://www.npmjs.com/package/@cityssm/agco-break-open-ticket-types)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b6538a4b810f5968ee30/maintainability)](https://codeclimate.com/github/cityssm/agco-break-open-ticket-types/maintainability)
 [![codecov](https://codecov.io/gh/cityssm/agco-break-open-ticket-types/graph/badge.svg?token=L66FE97G6B)](https://codecov.io/gh/cityssm/agco-break-open-ticket-types)
 [![DeepSource](https://app.deepsource.com/gh/cityssm/agco-break-open-ticket-types.svg/?label=active+issues&show_trend=true&token=ljmY2sbIaajAR8yQRWt4R4yM)](https://app.deepsource.com/gh/cityssm/agco-break-open-ticket-types/)
