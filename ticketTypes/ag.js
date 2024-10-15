@@ -185,5 +185,11 @@ export default {
         ticketPrice: 0.5,
         ticketCount: 4400,
         prizesPerDeal: 1540
+    },
+    AG93: {
+        ticketType: 'AG93',
+        ticketPrice: 1,
+        ticketCount: 4000,
+        prizesPerDeal: 2800
     }
 };

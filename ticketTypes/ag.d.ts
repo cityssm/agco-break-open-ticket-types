@@ -173,5 +173,11 @@ declare const _default: {
         ticketCount: number;
         prizesPerDeal: number;
     };
+    AG93: {
+        ticketType: "AG93";
+        ticketPrice: number;
+        ticketCount: number;
+        prizesPerDeal: number;
+    };
 };
 export default _default;
