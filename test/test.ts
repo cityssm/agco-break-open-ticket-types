@@ -1,71 +1,97 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
 
-import {
-  agTicketTypes,
-  bnTicketTypes,
-  isTicketType,
-  pgTicketTypes,
-  spTicketTypes,
-  ticketTypes
-} from '../index.js'
+import { isTicketType, parseTicketType, ticketTypes } from '../index.js'
+import type { ParsedTicketType, TicketTypePrefix } from '../types.js'
 
-function parseTicketTypeNumber(ticketType: string): number {
-  return Number.parseInt(ticketType.slice(2))
-}
+import {
+  groupedTicketTypes,
+  invalidTicketTypes,
+  validTicketTypes
+} from './_constants.js'
 
 await describe('agco-break-open-ticket-types', async () => {
   await describe('validate records', async () => {
     await it('contains valid records in ticketTypes', () => {
       for (const [lookupKey, lookupValue] of Object.entries(ticketTypes)) {
         assert.strictEqual(lookupKey, lookupValue.ticketType)
+
+        assert.ok(
+          lookupValue.ticketPrice > 0,
+          `ticketPrice must be greater than 0: ${lookupKey}`
+        )
+
+        assert.ok(
+          lookupValue.ticketCount > 0,
+          `ticketCount must be greater than 0: ${lookupKey}`
+        )
+
+        assert.ok(
+          lookupValue.prizesPerDeal > 0,
+          `prizesPerDeal must be greater than 0: ${lookupKey}`
+        )
       }
     })
-
-    const groupedTicketTypes = {
-      AG: agTicketTypes,
-      BN: bnTicketTypes,
-      PG: pgTicketTypes,
-      SP: spTicketTypes
-    }
 
     for (const [ticketTypePrefix, ticketTypesByPrefix] of Object.entries(
       groupedTicketTypes
     )) {
       await it(`contains sorted "${ticketTypePrefix}" records in ${ticketTypePrefix.toLowerCase()}TicketTypes`, () => {
-        let previousTicketType = ''
+        // eslint-disable-next-line @typescript-eslint/init-declarations
+        let previousParsedTicketType:
+          | ParsedTicketType<TicketTypePrefix>
+          | undefined
 
-        for (const [index, ticketType] of Object.keys(
-          ticketTypesByPrefix
-        ).entries()) {
-          assert.ok(ticketType.startsWith(ticketTypePrefix))
+        for (const ticketType of Object.keys(ticketTypesByPrefix)) {
+          const parsedTicketType = parseTicketType(ticketType)
 
-          if (index !== 0) {
+          assert.ok(parsedTicketType !== undefined)
+
+          assert.strictEqual(
+            parsedTicketType.ticketTypePrefix,
+            ticketTypePrefix
+          )
+
+          if (previousParsedTicketType !== undefined) {
             assert.ok(
-              parseTicketTypeNumber(previousTicketType) <
-                parseTicketTypeNumber(ticketType)
+              previousParsedTicketType.ticketTypeNumber <
+                parsedTicketType.ticketTypeNumber,
+
+              `Ticket types incorrectly ordered: ${previousParsedTicketType.ticketTypeNumber}, ${parsedTicketType.ticketTypeNumber}`
             )
           }
 
-          previousTicketType = ticketType
+          previousParsedTicketType = parsedTicketType
         }
       })
     }
   })
 
   await describe('isTicketType', async () => {
-    await it('Returns `true` for valid ticket types', () => {
-      assert.ok(isTicketType('AG1'))
-      assert.ok(isTicketType('BN1'))
-      assert.ok(isTicketType('PG1'))
-      assert.ok(isTicketType('SP1'))
+    await it('returns `true` for valid ticket types', () => {
+      for (const validTicketType of validTicketTypes) {
+        assert.ok(isTicketType(validTicketType))
+      }
     })
 
-    await it('Returns `false` for invalid ticket types', () => {
-      assert.ok(!isTicketType('AG'))
-      assert.ok(!isTicketType('BN 1'))
-      assert.ok(!isTicketType('PG0'))
-      assert.ok(!isTicketType('SP1000'))
+    await it('returns `false` for invalid ticket types', () => {
+      for (const invalidTicketType of invalidTicketTypes) {
+        assert.ok(!isTicketType(invalidTicketType))
+      }
+    })
+  })
+
+  await describe('parseTicketType', async () => {
+    await it('returns a parsed ticket type for valid ticket types', () => {
+      for (const validTicketType of validTicketTypes) {
+        assert.notStrictEqual(parseTicketType(validTicketType), undefined)
+      }
+    })
+
+    await it('returns `undefined` for invalid ticket types', () => {
+      for (const invalidTicketType of invalidTicketTypes) {
+        assert.strictEqual(parseTicketType(invalidTicketType), undefined)
+      }
     })
   })
 })

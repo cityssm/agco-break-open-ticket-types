@@ -1,5 +1,9 @@
 export type TicketTypePrefix = 'AG' | 'BN' | 'PG' | 'SP';
 export type TicketType<T extends TicketTypePrefix> = `${T}${number}`;
+export interface ParsedTicketType<T extends TicketTypePrefix> {
+    ticketTypePrefix: T;
+    ticketTypeNumber: number;
+}
 export interface TicketTypeRecord<TicketType> {
     ticketType: TicketType;
     ticketPrice: number;

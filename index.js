@@ -16,6 +16,20 @@ export const ticketTypes = {
 export function isTicketType(possibleTicketType) {
     return Object.hasOwn(ticketTypes, possibleTicketType);
 }
+/**
+ * Parses a valid ticket type into its two-letter prefix and numeric suffix.
+ * @param possibleTicketType - A possible ticket type
+ * @returns an object parsing the ticket type into its two-letter prefix and numeric suffix.
+ */
+export function parseTicketType(possibleTicketType) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    return isTicketType(possibleTicketType)
+        ? {
+            ticketTypePrefix: possibleTicketType.slice(0, 2),
+            ticketTypeNumber: Number.parseInt(possibleTicketType.slice(2))
+        }
+        : undefined;
+}
 export { default as agTicketTypes } from './ticketTypes/ag.js';
 export { default as bnTicketTypes } from './ticketTypes/bn.js';
 export { default as pgTicketTypes } from './ticketTypes/pg.js';
