@@ -1,3 +1,6 @@
+/**
+ * Ticket types starting with "BN"
+ */
 declare const _default: {
     BN1: {
         ticketType: "BN1";

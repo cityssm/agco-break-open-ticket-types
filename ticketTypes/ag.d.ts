@@ -1,3 +1,6 @@
+/**
+ * Ticket types starting with "AG"
+ */
 declare const _default: {
     AG1: {
         ticketType: "AG1";

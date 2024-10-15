@@ -1,3 +1,6 @@
+/**
+ * Ticket types starting with "SP"
+ */
 export default {
     SP1: {
         ticketType: 'SP1',

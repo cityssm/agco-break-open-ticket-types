@@ -1,3 +1,6 @@
+/**
+ * Ticket types starting with "SP"
+ */
 declare const _default: {
     SP1: {
         ticketType: "SP1";

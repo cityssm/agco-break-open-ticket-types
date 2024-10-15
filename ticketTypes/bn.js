@@ -1,3 +1,6 @@
+/**
+ * Ticket types starting with "BN"
+ */
 export default {
     BN1: {
         ticketType: 'BN1',

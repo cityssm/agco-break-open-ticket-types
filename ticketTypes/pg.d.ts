@@ -1,3 +1,6 @@
+/**
+ * Ticket types starting with "PG"
+ */
 declare const _default: {
     PG1: {
         ticketType: "PG1";

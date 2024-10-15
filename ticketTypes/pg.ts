@@ -1,5 +1,8 @@
 import type { TicketTypesLookupObject } from '../types'
 
+/**
+ * Ticket types starting with "PG"
+ */
 export default {
   PG1: {
     ticketType: 'PG1',

@@ -1,5 +1,8 @@
 import type { TicketTypesLookupObject } from '../types.js'
 
+/**
+ * Ticket types starting with "AG"
+ */
 export default {
   AG1: {
     ticketType: 'AG1',
