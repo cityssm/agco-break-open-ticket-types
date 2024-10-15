@@ -1,10 +1,34 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { isTicketType, ticketTypes } from '../index.js';
+import { agTicketTypes, bnTicketTypes, isTicketType, pgTicketTypes, spTicketTypes, ticketTypes } from '../index.js';
+function parseTicketTypeNumber(ticketType) {
+    return Number.parseInt(ticketType.slice(2));
+}
 await describe('agco-break-open-ticket-types', async () => {
-    await it('contains valid records', () => {
-        for (const [lookupKey, lookupValue] of Object.entries(ticketTypes)) {
-            assert.strictEqual(lookupKey, lookupValue.ticketType);
+    await describe('validate records', async () => {
+        await it('contains valid records in ticketTypes', () => {
+            for (const [lookupKey, lookupValue] of Object.entries(ticketTypes)) {
+                assert.strictEqual(lookupKey, lookupValue.ticketType);
+            }
+        });
+        const groupedTicketTypes = {
+            AG: agTicketTypes,
+            BN: bnTicketTypes,
+            PG: pgTicketTypes,
+            SP: spTicketTypes
+        };
+        for (const [ticketTypePrefix, ticketTypesByPrefix] of Object.entries(groupedTicketTypes)) {
+            await it(`contains sorted "${ticketTypePrefix}" records in ${ticketTypePrefix.toLowerCase()}TicketTypes`, () => {
+                let previousTicketType = '';
+                for (const [index, ticketType] of Object.keys(ticketTypesByPrefix).entries()) {
+                    assert.ok(ticketType.startsWith(ticketTypePrefix));
+                    if (index !== 0) {
+                        assert.ok(parseTicketTypeNumber(previousTicketType) <
+                            parseTicketTypeNumber(ticketType));
+                    }
+                    previousTicketType = ticketType;
+                }
+            });
         }
     });
     await describe('isTicketType', async () => {
