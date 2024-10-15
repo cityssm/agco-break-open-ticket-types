@@ -1,4 +1,7 @@
-import type { ParsedTicketType, TicketType, TicketTypePrefix } from './types.js';
+import type { ParsedTicketType, TicketType, TicketTypePrefix, TicketTypeRecord } from './types.js';
+/**
+ * All available ticket types
+ */
 export declare const ticketTypes: {
     PG1: {
         ticketType: "PG1";
@@ -727,6 +730,20 @@ export declare function isTicketType(possibleTicketType: string): possibleTicket
  * @returns an object parsing the ticket type into its two-letter prefix and numeric suffix.
  */
 export declare function parseTicketType(possibleTicketType: string): ParsedTicketType<TicketTypePrefix> | undefined;
+/**
+ * Compare function to sort ticket types alphabetically, with invalid ticket types at the end of the list.
+ * @param ticketTypeA - Ticket type A
+ * @param ticketTypeB - Ticket type B
+ * @returns the sort value
+ */
+export declare function ticketTypeSortFunction(ticketTypeA: string, ticketTypeB: string): number;
+/**
+ * Compare function to sort ticket type records alphabetically by ticket type, with invalid ticket types at the end of the list.
+ * @param ticketTypeRecordA - Ticket type record A
+ * @param ticketTypeRecordB - Ticket type record B
+ * @returns the sort value
+ */
+export declare function ticketTypeRecordSortFunction(ticketTypeRecordA: TicketTypeRecord<TicketType<TicketTypePrefix>>, ticketTypeRecordB: TicketTypeRecord<TicketType<TicketTypePrefix>>): number;
 export { default as agTicketTypes } from './ticketTypes/ag.js';
 export { default as bnTicketTypes } from './ticketTypes/bn.js';
 export { default as pgTicketTypes } from './ticketTypes/pg.js';

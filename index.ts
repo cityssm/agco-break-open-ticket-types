@@ -5,9 +5,13 @@ import spTicketTypes from './ticketTypes/sp.js'
 import type {
   ParsedTicketType,
   TicketType,
-  TicketTypePrefix
+  TicketTypePrefix,
+  TicketTypeRecord
 } from './types.js'
 
+/**
+ * All available ticket types
+ */
 export const ticketTypes = {
   ...bnTicketTypes,
   ...spTicketTypes,
@@ -41,6 +45,71 @@ export function parseTicketType(
         ticketTypeNumber: Number.parseInt(possibleTicketType.slice(2))
       }
     : undefined
+}
+
+/**
+ * Compare function to sort ticket types alphabetically, with invalid ticket types at the end of the list.
+ * @param ticketTypeA - Ticket type A
+ * @param ticketTypeB - Ticket type B
+ * @returns the sort value
+ */
+export function ticketTypeSortFunction(
+  ticketTypeA: string,
+  ticketTypeB: string
+): number {
+  /*
+   * Handle equal ticket types
+   */
+
+  if (ticketTypeA === ticketTypeB) {
+    return 0
+  }
+
+  const parsedTicketTypeA = parseTicketType(ticketTypeA)
+  const parsedTicketTypeB = parseTicketType(ticketTypeB)
+
+  /*
+   * Handle invalid ticket types
+   */
+
+  if (parsedTicketTypeA === undefined && parsedTicketTypeB === undefined) {
+    return ticketTypeA > ticketTypeB ? 1 : -1
+  } else if (parsedTicketTypeA === undefined) {
+    return 1
+  } else if (parsedTicketTypeB === undefined) {
+    return -1
+  }
+
+  /*
+   * Handle parsed ticket numbers
+   */
+
+  if (
+    parsedTicketTypeA.ticketTypePrefix !== parsedTicketTypeB.ticketTypePrefix
+  ) {
+    return parsedTicketTypeA.ticketTypePrefix >
+      parsedTicketTypeB.ticketTypePrefix
+      ? 1
+      : -1
+  }
+
+  return parsedTicketTypeA.ticketTypeNumber - parsedTicketTypeB.ticketTypeNumber
+}
+
+/**
+ * Compare function to sort ticket type records alphabetically by ticket type, with invalid ticket types at the end of the list.
+ * @param ticketTypeRecordA - Ticket type record A
+ * @param ticketTypeRecordB - Ticket type record B
+ * @returns the sort value
+ */
+export function ticketTypeRecordSortFunction(
+  ticketTypeRecordA: TicketTypeRecord<TicketType<TicketTypePrefix>>,
+  ticketTypeRecordB: TicketTypeRecord<TicketType<TicketTypePrefix>>
+): number {
+  return ticketTypeSortFunction(
+    ticketTypeRecordA.ticketType,
+    ticketTypeRecordB.ticketType
+  )
 }
 
 export { default as agTicketTypes } from './ticketTypes/ag.js'

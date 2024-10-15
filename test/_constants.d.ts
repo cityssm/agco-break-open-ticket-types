@@ -724,3 +724,25 @@ export declare const groupedTicketTypes: {
 };
 export declare const validTicketTypes: string[];
 export declare const invalidTicketTypes: string[];
+export declare const sortedTicketTypes: string[];
+export declare const sortedTicketTypeRecords: ({
+    ticketType: "AG5";
+    ticketPrice: number;
+    ticketCount: number;
+    prizesPerDeal: number;
+} | {
+    ticketType: "AG10";
+    ticketPrice: number;
+    ticketCount: number;
+    prizesPerDeal: number;
+} | {
+    ticketType: "BN4";
+    ticketPrice: number;
+    ticketCount: number;
+    prizesPerDeal: number;
+} | {
+    ticketType: "BN6";
+    ticketPrice: number;
+    ticketCount: number;
+    prizesPerDeal: number;
+})[];

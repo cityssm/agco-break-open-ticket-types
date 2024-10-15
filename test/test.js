@@ -1,7 +1,16 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { isTicketType, parseTicketType, ticketTypes } from '../index.js';
-import { groupedTicketTypes, invalidTicketTypes, validTicketTypes } from './_constants.js';
+import { isTicketType, parseTicketType, ticketTypeRecordSortFunction, ticketTypeSortFunction, ticketTypes } from '../index.js';
+import { groupedTicketTypes, invalidTicketTypes, sortedTicketTypeRecords, sortedTicketTypes, validTicketTypes } from './_constants.js';
+function shuffleArray(array) {
+    for (let index = array.length - 1; index >= 0; index--) {
+        // eslint-disable-next-line sonarjs/pseudo-random
+        const index_ = Math.floor(Math.random() * (index + 1));
+        const temp = array[index];
+        array[index] = array[index_];
+        array[index_] = temp;
+    }
+}
 await describe('agco-break-open-ticket-types', async () => {
     await describe('validate records', async () => {
         await it('contains valid records in ticketTypes', () => {
@@ -50,6 +59,32 @@ await describe('agco-break-open-ticket-types', async () => {
         await it('returns `undefined` for invalid ticket types', () => {
             for (const invalidTicketType of invalidTicketTypes) {
                 assert.strictEqual(parseTicketType(invalidTicketType), undefined);
+            }
+        });
+    });
+    await describe('ticketTypeSortFunction', async () => {
+        await it(`sorts ticket types`, () => {
+            for (let iteration = 0; iteration < 10; iteration += 1) {
+                const ticketTypesList = sortedTicketTypes.toReversed();
+                shuffleArray(ticketTypesList);
+                console.log(`Iteration ${iteration} before: [${ticketTypesList.join(', ')}]`);
+                ticketTypesList.sort(ticketTypeSortFunction);
+                console.log(`Iteration ${iteration} after:  [${ticketTypesList.join(', ')}]\n`);
+                for (const [index, element] of ticketTypesList.entries()) {
+                    assert.strictEqual(element, sortedTicketTypes[index]);
+                }
+            }
+        });
+    });
+    await describe('ticketTypeRecoirdSortFunction', async () => {
+        await it(`sorts ticket types`, () => {
+            for (let iteration = 0; iteration < 10; iteration += 1) {
+                const ticketTypeRecordsList = sortedTicketTypeRecords.toReversed();
+                shuffleArray(ticketTypeRecordsList);
+                ticketTypeRecordsList.sort(ticketTypeRecordSortFunction);
+                for (const [index, element] of ticketTypeRecordsList.entries()) {
+                    assert.strictEqual(element, sortedTicketTypeRecords[index]);
+                }
             }
         });
     });
