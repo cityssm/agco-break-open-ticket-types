@@ -7,6 +7,8 @@
 
 Break Open Ticket Types approved by the Alcohol and Gaming Commission of Ontario (AGCO) in a Node-friendly format.
 
+[Schedule of Approved Break Open Ticket Types and Associated Expense Maximums](https://www.agco.ca/en/lottery-and-gaming/schedule-approved-break-open-ticket-types-and-associated-expense-maximums)
+
 ## Installation
 
 ```sh
