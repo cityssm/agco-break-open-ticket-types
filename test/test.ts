@@ -116,7 +116,7 @@ await describe('agco-break-open-ticket-types', async () => {
   await describe('ticketTypeSortFunction', async () => {
     await it(`sorts ticket types`, () => {
       for (let iteration = 0; iteration < 10; iteration += 1) {
-        const ticketTypesList = sortedTicketTypes.toReversed()
+        const ticketTypesList = [...sortedTicketTypes]
 
         shuffleArray(ticketTypesList)
 
@@ -140,7 +140,7 @@ await describe('agco-break-open-ticket-types', async () => {
   await describe('ticketTypeRecoirdSortFunction', async () => {
     await it(`sorts ticket types`, () => {
       for (let iteration = 0; iteration < 10; iteration += 1) {
-        const ticketTypeRecordsList = sortedTicketTypeRecords.toReversed()
+        const ticketTypeRecordsList = [...sortedTicketTypeRecords]
 
         shuffleArray(ticketTypeRecordsList)
 
